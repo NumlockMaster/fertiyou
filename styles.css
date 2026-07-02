@@ -1,0 +1,1042 @@
+/* ============================================================
+   FertiYou Landing Page — styles.css
+   RTL, Hebrew, Narkiss Yair TRIAL → Heebo fallback
+   Base canvas: 1080 px (tablet/mobile @3x)
+   ============================================================ */
+
+/* ----------------------------------------------------------
+   DESIGN TOKENS
+   ---------------------------------------------------------- */
+:root {
+  --primary:     #006b2b;
+  --primary-alt: #006339;
+  --secondary:   #b0d9bc;
+  --background:  #fdfcf7;
+  --cards:       #f2ead6;
+  --pink:        #986070;
+  --pink-light:  #c08090;
+  --brown-dark:  #5c4430;
+  --brown-mid:   #8a7058;
+  --border:      #d3dcd3;
+  --mint-light:  #e8f5ec;
+  --warm-light:  #fdf8e8;
+
+  /* Typography — clamp from 390 px up to 1080 px */
+  --fs-hero:   clamp(28px, 5.09vw, 55px);
+  --fs-body:   clamp(15px, 2.55vw, 27.5px);
+  --fs-label:  clamp(13px, 1.67vw, 18px);
+  --fs-card:   clamp(14px, 2.55vw, 27.5px);
+
+  --lh-hero:   1;          /* 55/55 */
+  --lh-body:   2;          /* 55/27.5 */
+  --lh-label:  1.11;       /* 20/18 */
+
+  --ls-hero:   0.369140625px;
+  --ls-body:  -0.439453125px;
+  --ls-label: -0.150390625px;
+
+  /* Spacing */
+  --header-h: clamp(48px, 5.93vw, 64px);
+  --section-px: clamp(20px, 7.87vw, 85px);
+  --max-w: 1080px;
+}
+
+/* ----------------------------------------------------------
+   RESET & BASE
+   ---------------------------------------------------------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: narkiss-yair-variable, sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  background-color: var(--background);
+  color: var(--primary);
+  direction: rtl;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+/* ----------------------------------------------------------
+   HEADER
+   ---------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.site-header__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-h);
+  padding: 0 clamp(16px, 3.7vw, 40px);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-logo__leaf {
+  width: clamp(14px, 2.04vw, 22px);
+  height: auto;
+  object-fit: contain;
+}
+
+.header-logo__text {
+  width: clamp(70px, 10vw, 108px);
+  height: auto;
+  object-fit: contain;
+}
+
+.nav {
+  display: flex;
+  gap: clamp(16px, 2.96vw, 32px);
+  align-items: center;
+}
+
+.nav-link {
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  line-height: var(--lh-label);
+  color: var(--primary-alt);
+  white-space: nowrap;
+}
+
+/* ----------------------------------------------------------
+   BUTTONS
+   ---------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: inherit;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: opacity 0.15s ease;
+}
+
+.btn:hover {
+  opacity: 0.88;
+}
+
+.btn--primary {
+  background-color: var(--primary);
+  color: var(--secondary);
+  font-size: var(--fs-body);
+  letter-spacing: var(--ls-label);
+  line-height: var(--lh-body);
+  padding: clamp(12px, 1.94vw, 21px) clamp(24px, 7.13vw, 77px);
+  min-width: clamp(180px, 23.98vw, 259px);
+  min-height: clamp(48px, 6.67vw, 72px);
+  text-align: center;
+}
+
+.btn--small {
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  line-height: var(--lh-label);
+  padding: clamp(10px, 1.85vw, 20px) clamp(20px, 4.63vw, 50px);
+  min-width: auto;
+  min-height: auto;
+}
+
+.btn--center {
+  display: flex;
+  margin: 0 auto;
+}
+
+/* ----------------------------------------------------------
+   HERO SECTION — exact 1:1 Figma reproduction
+   ---------------------------------------------------------- */
+
+/*
+  The hero is an absolutely-positioned overlay composition (1080×1504 Figma canvas).
+  Every element is position:absolute at its exact Figma coordinate → %.
+  aspect-ratio locks the canvas proportions so it scales correctly at any width.
+  container-type: inline-size enables cqw units so fonts scale with the canvas.
+  1cqw = 1% of hero width = 10.8px at 1080px = perfect Figma match.
+*/
+
+.hero-bg {
+  background: linear-gradient(to bottom, #b0d9bc, #e8f5ec 49.99%, #eddfde);
+}
+
+.hero {
+  position: relative;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  aspect-ratio: 1080 / 1504;
+  container-type: inline-size;
+}
+
+/* ── Swirl illustration ──────────────────────────────────────
+   Figma: inner ellipse absolute coords x=387, y=72, w=429
+   → left 35.83%, top 4.79%, width 39.72%
+   Asset is tightly cropped (0.667 aspect) — height:auto preserves it exactly.
+*/
+.hero__swirl-wrap {
+  position: absolute;
+  left: 35.83%;
+  top: 4.79%;
+  width: 39.72%;
+  margin: 0;
+  z-index: 0;
+}
+
+.hero__swirl {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ── Heading ─────────────────────────────────────────────────
+   Figma 288:164: right edge x=968, visual top y=752, w=413, h=126
+   → right 10.37%, top 50.0%, width 38.24%
+*/
+.hero__heading {
+  position: absolute;
+  right: 10.37%;
+  top: 50.0%;
+  width: 38.24%;
+  font-size: 5.093cqw;        /* 55px at 1080px */
+  line-height: 5.093cqw;
+  letter-spacing: 0.0342cqw;  /* 0.369px */
+  color: #006b2b;
+  text-align: right;
+  direction: rtl;
+  z-index: 1;
+}
+
+/* ── Brand mark ──────────────────────────────────────────────
+   Figma 288:165: x=166, y=770, w=289, h=289 (square)
+   → left 15.37%, top 51.2%, width 26.76%
+*/
+.hero__brand-mark {
+  position: absolute;
+  left: 15.37%;
+  top: 51.2%;
+  width: 26.76%;
+  height: auto;
+  display: block;
+  z-index: 1;
+}
+
+/* ── Body paragraph 1 ────────────────────────────────────────
+   Figma 288:167: right edge x=968, y=903, w=342, h=216
+   → right 10.37%, top 60.04%, width 31.67%
+*/
+.hero__body-1 {
+  position: absolute;
+  right: 10.37%;
+  top: 60.04%;
+  width: 31.67%;
+  font-size: 2.546cqw;         /* 27.5px at 1080px */
+  line-height: 5.093cqw;       /* 55px */
+  letter-spacing: -0.0407cqw;  /* -0.4395px */
+  color: #006339;
+  text-align: right;
+  direction: rtl;
+  z-index: 1;
+}
+
+/* ── CTA button ──────────────────────────────────────────────
+   Figma 288:162: x=181, y=1083, w=259, h=72
+   → left 16.76%, top 72.01%, width 23.98%, height 4.79%
+*/
+.hero__cta {
+  position: absolute;
+  left: 16.76%;
+  top: 72.01%;
+  width: 23.98%;
+  height: 4.79%;
+  background-color: #006b2b;
+  color: #b0d9bc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 2.546cqw;
+  line-height: 2.546cqw;
+  letter-spacing: -0.0139cqw;  /* -0.1504px */
+  text-decoration: none;
+  z-index: 1;
+}
+
+.hero__cta:hover {
+  opacity: 0.88;
+}
+
+/* ── Body paragraph 2 ────────────────────────────────────────
+   Figma 288:166: x=170, y=1136, w=798, h=828
+   → right 10.37%, top 75.53%, width 73.89%
+   spans from left-of-logo (x=170) to right edge (x=968), nearly full canvas width
+*/
+.hero__body-2 {
+  position: absolute;
+  right: 10.37%;
+  top: 75.53%;
+  width: 73.89%;
+  font-size: 2.546cqw;
+  line-height: 5.093cqw;
+  letter-spacing: -0.0407cqw;
+  color: #006339;
+  text-align: right;
+  direction: rtl;
+  z-index: 1;
+}
+
+/* ----------------------------------------------------------
+   ABOUT SECTION — Figma-exact absolute positioning
+   1080 × 2312 canvas
+   ---------------------------------------------------------- */
+.about-bg {
+  background: linear-gradient(to bottom, #eddfde, #fdf8e8 40.865%);
+}
+
+.about {
+  position: relative;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  aspect-ratio: 1080 / 2312;
+  container-type: inline-size;
+  overflow: hidden;
+}
+
+/* Bg ellipse: left=558, top=55, w=358 */
+.about__bg-ellipse {
+  position: absolute;
+  left: 51.67%;
+  top: 2.38%;
+  width: 33.15%;
+  height: auto;
+  pointer-events: none;
+}
+
+/* Vered photo: left=587, top=84, w=307, h=460 */
+.about__photo {
+  position: absolute;
+  left: 54.35%;
+  top: 3.63%;
+  width: 28.43%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+/* Intro block (LEFT side): left=143, top=120, w=342 */
+.about__intro {
+  position: absolute;
+  left: 13.24%;
+  top: 5.19%;
+  width: 31.67%;
+  text-align: right;
+  direction: rtl;
+  font-size: 0;
+}
+
+.about__name-line {
+  display: block;
+  font-size: 2.546cqw;
+  line-height: 5.093cqw;
+  letter-spacing: -0.0407cqw;
+  color: #986070;
+}
+
+.about__name-line--hero {
+  font-size: 5.093cqw;
+  line-height: 5.093cqw;
+  letter-spacing: 0.0342cqw;
+  color: #c08090;
+}
+
+/* Extended bio: left=210, top=630, w=684 */
+.about__bio-extended {
+  position: absolute;
+  left: 19.44%;
+  top: 27.25%;
+  width: 63.33%;
+  font-size: 2.546cqw;
+  line-height: 5.093cqw;
+  letter-spacing: -0.0407cqw;
+  color: #986070;
+  text-align: right;
+  direction: rtl;
+}
+
+/* FertiYou logo: left=413, top=926, size=279 */
+.about__brand-mark {
+  position: absolute;
+  left: 38.24%;
+  top: 40.05%;
+  width: 25.83%;
+  height: auto;
+  display: block;
+}
+
+/* CTA button: left=411, top=1251, w=259, h=72 */
+.about__cta {
+  position: absolute;
+  left: 38.06%;
+  top: 54.12%;
+  width: 23.98%;
+  height: 3.11%;
+  background-color: #006b2b;
+  color: #b0d9bc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 2.546cqw;
+  line-height: 2.546cqw;
+  letter-spacing: -0.0139cqw;
+  text-decoration: none;
+}
+
+.about__cta:hover {
+  opacity: 0.88;
+}
+
+/* "רגועה בהחלטה" heading: left=369, top=1369, w=342 */
+.about__tagline {
+  position: absolute;
+  left: 34.17%;
+  top: 59.21%;
+  width: 31.67%;
+  font-size: 5.093cqw;
+  line-height: 5.093cqw;
+  letter-spacing: 0.0342cqw;
+  color: #006b2b;
+  text-align: center;
+}
+
+/* About FertiYou text: left=284, top=1552, w=512 */
+.about__fertiyou-body {
+  position: absolute;
+  left: 26.30%;
+  top: 67.12%;
+  width: 47.41%;
+  font-size: 2.546cqw;
+  line-height: 5.093cqw;
+  letter-spacing: -0.0407cqw;
+  color: #006339;
+  text-align: center;
+}
+
+/* Leaf icon: left=515, top=2179, w=49 */
+.about__bottom-leaf {
+  position: absolute;
+  left: 47.69%;
+  top: 94.25%;
+  width: 4.54%;
+  height: auto;
+  display: block;
+  pointer-events: none;
+}
+
+/* ----------------------------------------------------------
+   DECISION BANNER
+   ---------------------------------------------------------- */
+.decision-banner-bg {
+  background-color: #eddfde;
+}
+
+.decision-banner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  aspect-ratio: 1080 / 632;
+  overflow: hidden;
+  padding: 0 var(--section-px);
+}
+
+.decision-banner__inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(16px, 2.96vw, 32px);
+  height: 100%;
+}
+
+.decision-banner__label {
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+  letter-spacing: var(--ls-hero);
+  color: var(--pink);
+  text-align: center;
+  width: clamp(100px, 17.87%, 193px);
+  flex-shrink: 0;
+}
+
+.decision-banner__vectors {
+  position: relative;
+  flex: 1 1 auto;
+  height: 100%;
+}
+
+/* Outer shape — screen-blended → appears as pale oval */
+.decision-banner__vector {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: auto;
+  mix-blend-mode: screen;
+}
+
+/* Inner shape — normal blend → appears dark */
+.decision-banner__vector--2 {
+  height: 70%;
+  mix-blend-mode: normal;
+}
+
+/* ----------------------------------------------------------
+   WHY CHOOSE US + CONTACT shared gradient wrapper
+   ---------------------------------------------------------- */
+.why-contact-wrap {
+  background: linear-gradient(
+    to bottom,
+    #fdf8e8 0%,
+    #fdf8e8 30.288%,
+    #e8f5ec 56.731%,
+    #8cc0a0 99.99%
+  );
+}
+
+.why-us {
+  background: transparent;
+  padding: 0 var(--section-px) clamp(60px, 11.11vw, 120px);
+}
+
+.why-us__heading-wrap {
+  text-align: center;
+  padding-top: clamp(12px, 1.67vw, 18px);
+  margin-bottom: clamp(40px, 7.41vw, 80px);
+}
+
+.why-us__heading {
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+  letter-spacing: var(--ls-hero);
+  color: var(--brown-dark);
+  margin-bottom: clamp(12px, 2.22vw, 24px);
+}
+
+.why-us__subheading {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  color: var(--brown-mid);
+  text-align: center;
+}
+
+/* Cards grid: 2 columns of 334px max, last card same width centered */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 334px));
+  gap: clamp(12px, 3.33vw, 36px);
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.card {
+  position: relative;
+  background-color: var(--cards);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 1.5px rgba(0, 0, 0, 0.1),
+    0 1px 1px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: clamp(16px, 3.33vw, 36px);
+  padding: clamp(24px, 4.81vw, 52px) clamp(16px, 2.22vw, 24px) clamp(16px, 2.22vw, 24px);
+}
+
+.card--wide {
+  grid-column: 1 / -1;
+  max-width: 334px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.card__icon {
+  width: clamp(32px, 4.44vw, 48px);
+  height: clamp(32px, 4.44vw, 48px);
+  object-fit: contain;
+}
+
+.card__title {
+  font-size: var(--fs-card);
+  line-height: var(--lh-hero);
+  letter-spacing: var(--ls-label);
+  color: var(--brown-dark);
+  text-align: center;
+  word-break: break-word;
+}
+
+.card__tooltip {
+  position: absolute;
+  inset: 0;
+  background-color: var(--mint-light);
+  border-radius: 14px;
+  padding: clamp(12px, 2.22vw, 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: var(--fs-card);
+  line-height: 1.5;
+  letter-spacing: var(--ls-label);
+  color: var(--primary-alt);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.card:hover .card__tooltip,
+.card--active .card__tooltip {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ----------------------------------------------------------
+   CONTACT SECTION
+   ---------------------------------------------------------- */
+.contact {
+  background: transparent;
+  padding: clamp(40px, 7.41vw, 80px) var(--section-px) clamp(60px, 11.11vw, 120px);
+}
+
+.contact__header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: clamp(24px, 4.44vw, 48px);
+}
+
+.contact__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: clamp(12px, 2.22vw, 24px);
+}
+
+.contact__leaf {
+  width: clamp(18px, 3.52vw, 38px);
+  height: auto;
+  object-fit: contain;
+}
+
+.contact__logo-text {
+  width: clamp(90px, 14.72vw, 159px);
+  height: auto;
+  object-fit: contain;
+}
+
+.contact__tagline {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-label);
+  color: var(--primary-alt);
+  text-align: center;
+}
+
+/* Form */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(12px, 2.22vw, 24px);
+  max-width: clamp(320px, 70vw, 756px);
+  margin: 0 auto;
+}
+
+.contact-form__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 2.22vw, 24px);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.field__label {
+  font-size: var(--fs-label);
+  line-height: var(--lh-label);
+  letter-spacing: var(--ls-label);
+  color: var(--primary-alt);
+  text-align: right;
+}
+
+.field__input {
+  background-color: var(--mint-light);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  height: clamp(28px, 3.33vw, 36px);
+  padding: 0 clamp(8px, 1.48vw, 12px);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: var(--fs-label);
+  color: var(--primary-alt);
+  direction: rtl;
+  text-align: right;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.15s ease;
+}
+
+.field__input:focus {
+  border-color: var(--primary-alt);
+}
+
+.field__input--textarea {
+  height: clamp(60px, 8.24vw, 89px);
+  padding-top: clamp(8px, 1.48vw, 12px);
+  resize: vertical;
+}
+
+.contact-form__submit-row {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: clamp(8px, 1.48vw, 16px);
+}
+
+.contact__email {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-label);
+  color: var(--primary-alt);
+  text-align: center;
+  margin-top: clamp(20px, 3.7vw, 40px);
+}
+
+/* ----------------------------------------------------------
+   FOOTER
+   ---------------------------------------------------------- */
+.site-footer {
+  background-color: #8cc0a0;
+}
+
+.site-footer__inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  height: clamp(50px, 6.11vw, 66px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(12px, 1.76vw, 19px);
+  direction: ltr;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.footer-logo__leaf {
+  width: clamp(14px, 2.04vw, 22px);
+  height: auto;
+  object-fit: contain;
+}
+
+.footer-logo__text {
+  width: clamp(70px, 10vw, 108px);
+  height: auto;
+  object-fit: contain;
+}
+
+.footer-links {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-link {
+  font-size: clamp(11px, 1.3vw, 14px);
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.150390625px;
+  color: #006339;
+  text-decoration: none;
+}
+
+.footer-copy {
+  font-size: clamp(11px, 1.3vw, 14px);
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.150390625px;
+  color: #006339;
+  flex: 0 0 auto;
+}
+
+/* ----------------------------------------------------------
+   RESPONSIVE BREAKPOINTS
+   ---------------------------------------------------------- */
+
+/* Tablet / small desktop */
+@media (max-width: 768px) {
+  /* Hero and about use aspect-ratio + cqw — they scale automatically. */
+
+  .decision-banner {
+    aspect-ratio: auto;
+    padding: clamp(32px, 6vw, 60px) var(--section-px);
+  }
+
+  .decision-banner__inner {
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+    gap: clamp(16px, 4.17vw, 32px);
+  }
+
+  .decision-banner__vectors {
+    width: 100%;
+    height: clamp(200px, 50vw, 400px);
+  }
+
+  .decision-banner__label {
+    text-align: center;
+  }
+
+  .contact-form__row {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .site-header__inner {
+    padding: 0 clamp(12px, 4vw, 20px);
+  }
+
+  .cards {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+
+  .card--wide {
+    max-width: 100%;
+  }
+
+  .btn--primary {
+    min-width: 0;
+    width: 100%;
+    max-width: clamp(220px, 80vw, 320px);
+  }
+}
+
+/* ----------------------------------------------------------
+   FORM STATUS MESSAGE
+   ---------------------------------------------------------- */
+
+#form-status {
+  min-height: 1.5em;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.form-status--error {
+  color: #c0392b;
+}
+
+/* ----------------------------------------------------------
+   THANK YOU PAGE
+   ---------------------------------------------------------- */
+
+/*
+  Figma תודות: 1080×813px section, gradient #b0d9bc → #e1f5ec.
+  All elements absolutely positioned within the aspect-ratio canvas.
+  Font 27.5px / 55px line-height, centered.
+*/
+.thankyou {
+  position: relative;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  aspect-ratio: 1080 / 813;
+  container-type: inline-size;
+  background: linear-gradient(to bottom, #b0d9bc, #e1f5ec);
+  overflow: hidden;
+}
+
+/* Leaf icon: Figma left=510, top=154, w≈58px → 47.22%, 18.94%, 5.4% */
+.thankyou__leaf {
+  position: absolute;
+  left: 47.22%;
+  top: 18.94%;
+  width: 5.4%;
+  height: auto;
+  transform: translateX(-50%);
+}
+
+/* Three-line message: vertically centered (justify-content: center on 813px) */
+.thankyou__text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--primary);
+  font-size: 2.546cqw;     /* 27.5px at 1080px */
+  line-height: 5.093cqw;   /* 55px at 1080px */
+  letter-spacing: -0.0407cqw;
+  white-space: nowrap;
+}
+
+.thankyou__text p {
+  margin: 0;
+}
+
+/* Wordmark: Figma left=419, top=567, w=242, h=54 → 38.79%, 69.74%, 22.41% */
+.thankyou__wordmark {
+  position: absolute;
+  left: 38.79%;
+  top: 69.74%;
+  width: 22.41%;
+  height: auto;
+}
+
+/* ----------------------------------------------------------
+   PRIVACY PAGE
+   ---------------------------------------------------------- */
+.privacy-page {
+  background: linear-gradient(to bottom, #e3f6ee, rgba(204, 236, 218, 0.3));
+  min-height: 100vh;
+}
+
+.privacy-header {
+  background-color: #e2f5ed;
+  border-bottom: 1px solid #d3dcd3;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+}
+
+.privacy-header__inner {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.privacy-header__cta {
+  display: inline-block;
+  background-color: #006339;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: var(--font-family-narkiss-yair-trial);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: -0.15px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.privacy-main {
+  padding: 64px 24px 80px;
+}
+
+.privacy-container {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.privacy-title {
+  font-family: var(--font-family-narkiss-yair-trial);
+  font-size: 55px;
+  font-weight: 700;
+  line-height: 55px;
+  letter-spacing: 0.369px;
+  color: #006b2b;
+  text-align: center;
+  margin: 0 0 110px;
+}
+
+.privacy-body {
+  max-width: 512px;
+  margin: 0 auto;
+  font-family: var(--font-family-narkiss-yair-trial);
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: -0.44px;
+  color: #006339;
+  text-align: right;
+}
+
+.privacy-body p {
+  margin: 0;
+}
+
+.privacy-section-heading {
+  text-decoration: underline;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 36px;
+  letter-spacing: -0.44px;
+  color: #006339;
+  font-family: var(--font-family-narkiss-yair-trial);
+  margin: 36px 0 0;
+  display: block;
+}
+
+.privacy-spacer {
+  display: block;
+  height: 36px;
+}
+
+.privacy-term {
+  text-decoration: underline;
+}
+
+.privacy-body a {
+  color: inherit;
+}
